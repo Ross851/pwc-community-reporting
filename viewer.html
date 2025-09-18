@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PwC Community Reporting Solution</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        /* PwC Brand Colors */
+        :root {
+            --pwc-orange: #D04A02;
+            --pwc-orange-light: #E87722;
+            --pwc-pink: #DB536A;
+            --pwc-yellow: #FFB600;
+            --pwc-black: #2D2926;
+            --pwc-dark-grey: #404040;
+            --pwc-grey: #666666;
+            --pwc-light-grey: #F5F5F5;
+            --pwc-white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+            color: var(--pwc-dark-grey);
+            background-color: var(--pwc-white);
+            line-height: 1.6;
+        }
+
+        /* PwC Header */
+        .pwc-header {
+            background: var(--pwc-white);
+            border-bottom: 4px solid var(--pwc-orange);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .pwc-logo {
+            font-family: Georgia, serif;
+            font-size: 32px;
+            color: var(--pwc-orange);
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .markdown-body {
+            background: var(--pwc-white);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Typography */
+        .markdown-body h1 {
+            font-family: Georgia, serif;
+            color: var(--pwc-orange);
+            font-size: 2.5em;
+            font-weight: normal;
+            margin-bottom: 0.5em;
+            padding-bottom: 0.3em;
+            border-bottom: 4px solid var(--pwc-orange);
+            letter-spacing: -0.02em;
+        }
+
+        .markdown-body h2 {
+            font-family: Georgia, serif;
+            color: var(--pwc-black);
+            font-size: 2em;
+            font-weight: normal;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            padding-bottom: 0.3em;
+            border-bottom: 2px solid var(--pwc-orange-light);
+        }
+
+        .markdown-body h3 {
+            color: var(--pwc-dark-grey);
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-top: 1.2em;
+            margin-bottom: 0.4em;
+        }
+
+        .markdown-body h4 {
+            color: var(--pwc-grey);
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 1em;
+            margin-bottom: 0.3em;
+        }
+
+        .markdown-body p {
+            margin-bottom: 1em;
+            color: var(--pwc-dark-grey);
+            line-height: 1.7;
+        }
+
+        .markdown-body strong {
+            color: var(--pwc-orange);
+            font-weight: 600;
+        }
+
+        .markdown-body em {
+            color: var(--pwc-pink);
+            font-style: italic;
+        }
+
+        /* Lists */
+        .markdown-body ul, .markdown-body ol {
+            margin-bottom: 1em;
+            padding-left: 30px;
+        }
+
+        .markdown-body li {
+            margin-bottom: 0.5em;
+            color: var(--pwc-dark-grey);
+        }
+
+        .markdown-body ul li::marker {
+            color: var(--pwc-orange);
+        }
+
+        /* Tables */
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            overflow: auto;
+            background: var(--pwc-white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .markdown-body table th {
+            background-color: var(--pwc-orange);
+            color: var(--pwc-white);
+            font-weight: 600;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .markdown-body table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--pwc-light-grey);
+            color: var(--pwc-dark-grey);
+        }
+
+        .markdown-body table tr:nth-child(even) {
+            background-color: #FAFAFA;
+        }
+
+        .markdown-body table tr:hover {
+            background-color: #FFF5F0;
+            transition: background-color 0.2s ease;
+        }
+
+        /* Code blocks */
+        .markdown-body pre {
+            background: var(--pwc-light-grey);
+            border-left: 4px solid var(--pwc-orange);
+            padding: 15px;
+            overflow-x: auto;
+            margin: 1.5em 0;
+            border-radius: 4px;
+        }
+
+        .markdown-body code {
+            background: var(--pwc-light-grey);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: var(--pwc-dark-grey);
+        }
+
+        .markdown-body pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        /* Links */
+        .markdown-body a {
+            color: var(--pwc-orange);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .markdown-body a:hover {
+            color: var(--pwc-orange-light);
+            border-bottom: 1px solid var(--pwc-orange-light);
+        }
+
+        /* Blockquotes */
+        .markdown-body blockquote {
+            border-left: 5px solid var(--pwc-orange);
+            background: #FFF5F0;
+            margin: 1.5em 0;
+            padding: 15px 20px;
+            font-style: italic;
+            color: var(--pwc-dark-grey);
+        }
+
+        /* Horizontal rules */
+        .markdown-body hr {
+            border: none;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                var(--pwc-orange) 0%, 
+                var(--pwc-orange) 25%, 
+                var(--pwc-pink) 25%, 
+                var(--pwc-pink) 50%, 
+                var(--pwc-yellow) 50%, 
+                var(--pwc-yellow) 75%, 
+                var(--pwc-orange-light) 75%, 
+                var(--pwc-orange-light) 100%);
+            margin: 2em 0;
+        }
+
+        /* Footer */
+        .pwc-footer {
+            background: var(--pwc-light-grey);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            border-top: 4px solid var(--pwc-orange);
+            color: var(--pwc-grey);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 10px;
+            }
+            .markdown-body {
+                padding: 20px;
+            }
+            .markdown-body h1 {
+                font-size: 1.8em;
+            }
+            .markdown-body h2 {
+                font-size: 1.5em;
+            }
+            .markdown-body table {
+                font-size: 0.9em;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .pwc-header {
+                position: static;
+            }
+            .markdown-body {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="pwc-header">
+        <div class="container">
+            <div class="pwc-logo">PwC</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="markdown-body" id="content"></div>
+    </div>
+
+    <footer class="pwc-footer">
+        <p>© 2024 PwC. All rights reserved. PwC refers to the PwC network and/or one or more of its member firms.</p>
+    </footer>
+
+    <script>
+        fetch('PwC_Community_Reporting_Presentation.md')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('content').innerHTML = marked.parse(text);
+            })
+            .catch(error => {
+                document.getElementById('content').innerHTML = '<p>Error loading presentation content.</p>';
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "pwc-community-reporting-solution",
+  "version": "1.0.0",
+  "description": "PwC Community Reporting Solution Presentation for Local Authority",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx http-server . -p 3000",
+    "build": "echo 'No build required - static files'",
+    "start": "npx http-server . -p 3000"
+  },
+  "keywords": ["power-pages", "microsoft", "local-authority", "pwc"],
+  "author": "PwC Microsoft Practice",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

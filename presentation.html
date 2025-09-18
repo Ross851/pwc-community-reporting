@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PwC Community Reporting Solution</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        /* PwC Brand Colors */
+        :root {
+            --pwc-orange: #D04A02;
+            --pwc-orange-light: #E87722;
+            --pwc-pink: #DB536A;
+            --pwc-yellow: #FFB600;
+            --pwc-black: #2D2926;
+            --pwc-dark-grey: #404040;
+            --pwc-grey: #666666;
+            --pwc-light-grey: #F5F5F5;
+            --pwc-white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+            color: var(--pwc-dark-grey);
+            background-color: var(--pwc-white);
+            line-height: 1.6;
+        }
+
+        /* PwC Header */
+        .pwc-header {
+            background: var(--pwc-white);
+            border-bottom: 4px solid var(--pwc-orange);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .pwc-logo {
+            font-family: Georgia, serif;
+            font-size: 32px;
+            color: var(--pwc-orange);
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .markdown-body {
+            background: var(--pwc-white);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Typography */
+        h1 {
+            font-family: Georgia, serif;
+            color: var(--pwc-orange);
+            font-size: 2.5em;
+            font-weight: normal;
+            margin-bottom: 0.5em;
+            padding-bottom: 0.3em;
+            border-bottom: 4px solid var(--pwc-orange);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: Georgia, serif;
+            color: var(--pwc-black);
+            font-size: 2em;
+            font-weight: normal;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            padding-bottom: 0.3em;
+            border-bottom: 2px solid var(--pwc-orange-light);
+        }
+
+        h3 {
+            color: var(--pwc-dark-grey);
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-top: 1.2em;
+            margin-bottom: 0.4em;
+        }
+
+        h4 {
+            color: var(--pwc-grey);
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 1em;
+            margin-bottom: 0.3em;
+        }
+
+        p {
+            margin-bottom: 1em;
+            color: var(--pwc-dark-grey);
+            line-height: 1.7;
+        }
+
+        strong {
+            color: var(--pwc-orange);
+            font-weight: 600;
+        }
+
+        em {
+            color: var(--pwc-pink);
+            font-style: italic;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-bottom: 1em;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 0.5em;
+            color: var(--pwc-dark-grey);
+        }
+
+        ul li::marker {
+            color: var(--pwc-orange);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            overflow: auto;
+            background: var(--pwc-white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        table th {
+            background-color: var(--pwc-orange);
+            color: var(--pwc-white);
+            font-weight: 600;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--pwc-light-grey);
+            color: var(--pwc-dark-grey);
+        }
+
+        table tr:nth-child(even) {
+            background-color: #FAFAFA;
+        }
+
+        table tr:hover {
+            background-color: #FFF5F0;
+            transition: background-color 0.2s ease;
+        }
+
+        /* Code blocks */
+        pre {
+            background: var(--pwc-light-grey);
+            border-left: 4px solid var(--pwc-orange);
+            padding: 15px;
+            overflow-x: auto;
+            margin: 1.5em 0;
+            border-radius: 4px;
+        }
+
+        code {
+            background: var(--pwc-light-grey);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: var(--pwc-dark-grey);
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        /* Links */
+        a {
+            color: var(--pwc-orange);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--pwc-orange-light);
+            border-bottom: 1px solid var(--pwc-orange-light);
+        }
+
+        /* Blockquotes */
+        blockquote {
+            border-left: 5px solid var(--pwc-orange);
+            background: #FFF5F0;
+            margin: 1.5em 0;
+            padding: 15px 20px;
+            font-style: italic;
+            color: var(--pwc-dark-grey);
+        }
+
+        /* Horizontal rules */
+        hr {
+            border: none;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                var(--pwc-orange) 0%, 
+                var(--pwc-orange) 25%, 
+                var(--pwc-pink) 25%, 
+                var(--pwc-pink) 50%, 
+                var(--pwc-yellow) 50%, 
+                var(--pwc-yellow) 75%, 
+                var(--pwc-orange-light) 75%, 
+                var(--pwc-orange-light) 100%);
+            margin: 2em 0;
+        }
+
+        /* Footer */
+        .pwc-footer {
+            background: var(--pwc-light-grey);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            border-top: 4px solid var(--pwc-orange);
+            color: var(--pwc-grey);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 10px;
+            }
+            .markdown-body {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            table {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="pwc-header">
+        <div class="container">
+            <div class="pwc-logo">PwC</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="markdown-body" id="content">
+            <h1>Loading presentation...</h1>
+        </div>
+    </div>
+
+    <footer class="pwc-footer">
+        <p>© 2024 PwC. All rights reserved. PwC refers to the PwC network and/or one or more of its member firms.</p>
+    </footer>
+
+    <script>
+        // Embed the markdown content directly
+        const markdownContent = `# Community Reporting Solution for Local Authority
+## PwC Microsoft Practice - Manager Grade Presentation
+
+---
+
+## Opening: The Challenge
+
+**"How do we reduce call centre costs by 30% and improve citizen satisfaction without adding burden to an already stretched team?"**
+
+This is the question we'll answer today with a solution that transforms citizen engagement while building your team's capability.
+
+---
+
+## Executive Summary (2 minutes)
+
+### Three Core Benefits
+
+#### 💷 Financial Impact
+**30% reduction in call centre costs** 
+- Save £150/day (£40,000 annually)
+- 8-10 month payback period
+
+#### 😊 Citizen Experience  
+**Mobile-first, no-account-needed reporting**
+- Report issues in under 60 seconds
+- Track progress with reference number
+- Available 24/7 in multiple languages
+
+#### 💪 Organisational Capability
+**Your team becomes self-sufficient**
+- Visual tools mean no coding required
+- Microsoft certifications for 5 staff
+- No supplier dependency after handover
+
+### Client Context
+- **Local Authority**: 300,000 residents
+- **Current State**: Microsoft ecosystem, limited low-code experience
+- **Challenge**: Need for community reporting system with team upskilling
+- **Opportunity**: Transform citizen engagement while building internal capability`;
+
+        // Parse and display the markdown
+        document.getElementById('content').innerHTML = marked.parse(markdownContent);
+    </script>
+</body>
+</html>
