@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PwC Community Reporting Solution - Executive Summary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pwc-orange: #D04A02;
+            --pwc-orange-light: #E87722;
+            --pwc-pink: #DB536A;
+            --pwc-yellow: #FFB600;
+            --pwc-black: #2D2926;
+            --pwc-dark-grey: #404040;
+            --pwc-grey: #666666;
+            --pwc-light-grey: #F5F5F5;
+            --pwc-white: #FFFFFF;
+            --gradient: linear-gradient(135deg, #D04A02 0%, #DB536A 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--pwc-orange);
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--pwc-orange);
+            font-family: Georgia, serif;
+        }
+
+        .slide-dots {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            width: 40px;
+            height: 10px;
+            border-radius: 5px;
+            background: var(--pwc-orange);
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 10px 25px;
+            background: transparent;
+            color: var(--pwc-orange);
+            border: 2px solid var(--pwc-orange);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--pwc-orange);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Slides Container */
+        .slides-container {
+            height: 100vh;
+            padding-top: 85px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: calc(100vh - 85px);
+            padding: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+
+        .slide-content {
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 64px;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 42px;
+            font-weight: 600;
+            color: var(--pwc-orange);
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            font-size: 28px;
+            font-weight: 500;
+            color: var(--pwc-pink);
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .subtitle {
+            font-size: 28px;
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        /* Impact Box */
+        .impact-box {
+            background: rgba(255,0,0,0.1);
+            border: 3px solid #ff4444;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .impact-box h2 {
+            color: #ff4444;
+            margin-bottom: 15px;
+        }
+
+        .impact-box p {
+            font-size: 24px;
+            color: rgba(255,255,255,0.95);
+        }
+
+        /* Cards */
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .point-card {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .point-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--pwc-orange);
+            transform: translateY(-5px);
+        }
+
+        .point-card h3 {
+            color: var(--pwc-orange);
+            margin-bottom: 15px;
+        }
+
+        /* Metrics */
+        .metrics-row {
+            display: flex;
+            justify-content: space-around;
+            margin: 50px 0;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 72px;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(208,74,2,0.15) 0%, rgba(219,83,106,0.15) 100%);
+            border: 2px solid var(--pwc-orange);
+            border-radius: 16px;
+            padding: 35px;
+            margin: 40px 0;
+        }
+
+        /* Table */
+        .simple-table {
+            width: 100%;
+            margin: 30px 0;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .simple-table th {
+            background: var(--pwc-orange);
+            color: white;
+            padding: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .simple-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 17px;
+        }
+
+        .simple-table tr:hover td {
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Timeline */
+        .simple-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .simple-timeline::before {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: 50px;
+            right: 50px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .timeline-point {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .timeline-point::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--pwc-orange);
+            border: 4px solid #0a0a0a;
+        }
+
+        .timeline-point h4 {
+            margin-top: 70px;
+            color: var(--pwc-orange);
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-point p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: var(--gradient);
+            border-radius: 20px;
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            background: white;
+            color: var(--pwc-orange);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 20px;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+            }
+            h1 { font-size: 36px; }
+            h2 { font-size: 28px; }
+            .key-points {
+                grid-template-columns: 1fr;
+            }
+            .metrics-row {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="logo">PwC</div>
+        <div class="slide-dots">
+            <span class="dot active" onclick="goToSlide(0)"></span>
+            <span class="dot" onclick="goToSlide(1)"></span>
+            <span class="dot" onclick="goToSlide(2)"></span>
+            <span class="dot" onclick="goToSlide(3)"></span>
+            <span class="dot" onclick="goToSlide(4)"></span>
+            <span class="dot" onclick="goToSlide(5)"></span>
+            <span class="dot" onclick="goToSlide(6)"></span>
+            <span class="dot" onclick="goToSlide(7)"></span>
+            <span class="dot" onclick="goToSlide(8)"></span>
+        </div>
+        <div class="nav-controls">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">←</button>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">→</button>
+        </div>
+    </nav>
+
+    <!-- Slides Container -->
+    <div class="slides-container">
+        
+        <!-- Slide 1: Opening Hook -->
+        <section class="slide active">
+            <div class="slide-content">
+                <div class="impact-box">
+                    <h2>⚠️ The Challenge</h2>
+                    <p>Rising call volumes, stretched teams, citizens expecting digital services</p>
+                </div>
+                
+                <h1>Community Reporting Solution</h1>
+                <p class="subtitle">Transform citizen engagement while building internal capability</p>
+                
+                <div class="metrics-row">
+                    <div class="metric">
+                        <div class="metric-value">24/7</div>
+                        <div class="metric-label">Availability</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">Mobile</div>
+                        <div class="metric-label">First Design</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">No Login</div>
+                        <div class="metric-label">Required</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">Multi</div>
+                        <div class="metric-label">Language</div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="text-align: center;">
+                    <p style="font-size: 28px; margin: 0;">
+                        <strong>The twist:</strong> Your own team will build and run it - no supplier dependency
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Why Power Pages -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Why Power Pages?</h1>
+                <p class="subtitle">The only platform that meets all your requirements</p>
+                
+                <div class="key-points">
+                    <div class="point-card">
+                        <h3>✅ Anonymous Access</h3>
+                        <p>Citizens won't create accounts to report potholes</p>
+                        <p><strong>Impact:</strong> Significantly higher adoption</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>💰 Predictable Costs</h3>
+                        <p>Flat-rate licensing for unlimited citizens</p>
+                        <p><strong>Impact:</strong> Predictable budgeting</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>🔧 Low-Code Maintenance</h3>
+                        <p>Visual designers your team can use</p>
+                        <p><strong>Impact:</strong> No vendor dependency after handover</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>🔗 Microsoft Native</h3>
+                        <p>Seamless integration with your existing stack</p>
+                        <p><strong>Impact:</strong> Leverage current investments</p>
+                    </div>
+                </div>
+                
+                <table class="simple-table">
+                    <thead>
+                        <tr>
+                            <th>Alternative</th>
+                            <th>Fatal Flaw</th>
+                            <th>Cost Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Power Apps Portal</td>
+                            <td>Requires user authentication</td>
+                            <td>Significantly lower adoption</td>
+                        </tr>
+                        <tr>
+                            <td>Custom Development</td>
+                            <td>Longer timeline</td>
+                            <td>Higher implementation cost</td>
+                        </tr>
+                        <tr>
+                            <td>Third-Party SaaS</td>
+                            <td>Per-transaction pricing</td>
+                            <td>Unpredictable costs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Slide 3: Stakeholder Engagement -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Stakeholder Strategy</h1>
+                <p class="subtitle">"We've tried this before and it failed" → Here's why this time is different</p>
+                
+                <div class="highlight-box">
+                    <h2 style="color: var(--pwc-yellow); margin-bottom: 20px;">🎯 Design Authority Model</h2>
+                    <p style="font-size: 24px; text-align: center;">Single decision maker + All voices heard = No endless committees</p>
+                </div>
+                
+                <div class="key-points">
+                    <div class="point-card">
+                        <h3>👥 ICT Team</h3>
+                        <p><strong>Concern:</strong> Security & integration</p>
+                        <p><strong>Solution:</strong> They have veto on security</p>
+                        <p><strong>Engagement:</strong> Weekly stand-ups</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>📞 Customer Service</h3>
+                        <p><strong>Concern:</strong> More complexity</p>
+                        <p><strong>Solution:</strong> They own acceptance criteria</p>
+                        <p><strong>Engagement:</strong> Bi-weekly demos</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>📣 Marketing</h3>
+                        <p><strong>Concern:</strong> Public adoption</p>
+                        <p><strong>Solution:</strong> Citizens test monthly</p>
+                        <p><strong>Engagement:</strong> Monthly reviews</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>🏛️ Leadership</h3>
+                        <p><strong>Concern:</strong> Political risk</p>
+                        <p><strong>Solution:</strong> Soft pilot approach</p>
+                        <p><strong>Engagement:</strong> Fortnightly steering</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Solution Architecture -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Technical Architecture</h1>
+                <p class="subtitle">Enterprise-grade, scalable, maintainable</p>
+                
+                <div style="background: rgba(255,255,255,0.05); border: 3px solid var(--pwc-orange); border-radius: 20px; padding: 40px; margin: 40px 0; text-align: center;">
+                    <h2 style="margin-bottom: 30px;">Solution Stack</h2>
+                    <div style="font-size: 24px; line-height: 2;">
+                        <p><strong style="color: var(--pwc-orange);">Citizens</strong> → Power Pages (Anonymous)</p>
+                        <p>↓</p>
+                        <p><strong style="color: var(--pwc-orange);">Data</strong> → Microsoft Dataverse</p>
+                        <p>↓</p>
+                        <p><strong style="color: var(--pwc-orange);">Automation</strong> → Power Automate</p>
+                        <p>↓</p>
+                        <p><strong style="color: var(--pwc-orange);">Analytics</strong> → Power BI</p>
+                        <p>↓</p>
+                        <p><strong style="color: var(--pwc-orange);">Integration</strong> → Existing Systems</p>
+                    </div>
+                </div>
+                
+                <div class="key-points">
+                    <div class="point-card">
+                        <h3>🔒 Security</h3>
+                        <p>UK-hosted, GDPR compliant</p>
+                        <p>Penetration tested quarterly</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>⚡ Performance</h3>
+                        <p>Fast page loads</p>
+                        <p>Handles high concurrent users</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>♿ Accessibility</h3>
+                        <p>WCAG 2.1 AA compliant</p>
+                        <p>Multi-language support</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>📱 Mobile-First</h3>
+                        <p>Progressive web app</p>
+                        <p>Offline capability</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Implementation Approach -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Agile That Works</h1>
+                <p class="subtitle">"We don't do Agile" → "We can't stop doing Agile"</p>
+                
+                <div class="highlight-box">
+                    <h2 style="margin-bottom: 20px;">Converting Skeptics in 2 Weeks</h2>
+                    <p style="font-size: 22px;">✓ Working software early</p>
+                    <p style="font-size: 22px;">✓ Regular demos, not ceremonies</p>
+                    <p style="font-size: 22px;">✓ Fixed budgets with flexibility</p>
+                    <p style="font-size: 22px;">✓ Governance checkpoints built in</p>
+                </div>
+                
+                <div class="simple-timeline">
+                    <div class="timeline-point">
+                        <h4>Sprint 1-2</h4>
+                        <p>Core Portal</p>
+                        <p style="color: var(--pwc-yellow);">Working demo</p>
+                    </div>
+                    <div class="timeline-point">
+                        <h4>Sprint 3-4</h4>
+                        <p>Automation</p>
+                        <p style="color: var(--pwc-yellow);">End-to-end flow</p>
+                    </div>
+                    <div class="timeline-point">
+                        <h4>Sprint 5-6</h4>
+                        <p>Analytics</p>
+                        <p style="color: var(--pwc-yellow);">Live dashboard</p>
+                    </div>
+                    <div class="timeline-point">
+                        <h4>Sprint 7-8</h4>
+                        <p>Testing</p>
+                        <p style="color: var(--pwc-yellow);">1000 users</p>
+                    </div>
+                    <div class="timeline-point">
+                        <h4>Sprint 9-10</h4>
+                        <p>Launch</p>
+                        <p style="color: var(--pwc-yellow);">Go live</p>
+                    </div>
+                </div>
+                
+                <table class="simple-table">
+                    <thead>
+                        <tr>
+                            <th>Traditional Approach</th>
+                            <th>Our Approach</th>
+                            <th>Business Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>6-month development</td>
+                            <td>Working software early</td>
+                            <td>Reduced anxiety</td>
+                        </tr>
+                        <tr>
+                            <td>Big bang release</td>
+                            <td>Incremental delivery</td>
+                            <td>Reduced risk</td>
+                        </tr>
+                        <tr>
+                            <td>Late user feedback</td>
+                            <td>Continuous validation</td>
+                            <td>Cost savings</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Slide 6: Knowledge Transfer -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Team Enablement</h1>
+                <p class="subtitle">From dependent to self-sufficient in 6 months</p>
+                
+                <div class="key-points">
+                    <div class="point-card">
+                        <h3>🎓 Certification Program</h3>
+                        <p><strong>5 staff certified:</strong></p>
+                        <p>• Business Analysts (PL-200)</p>
+                        <p>• Developers (PL-400)</p>
+                        <p>• Intensive training program</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>📚 Knowledge Transfer</h3>
+                        <p><strong>Complete package:</strong></p>
+                        <p>• Comprehensive documentation</p>
+                        <p>• Video tutorials</p>
+                        <p>• All IP transferred</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>🤝 Partnership Options</h3>
+                        <p><strong>Choose your model:</strong></p>
+                        <p>• Full handover (independence)</p>
+                        <p>• Managed support (safety net)</p>
+                        <p>• Your risk appetite decides</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>🔧 Low-Code Boundaries</h3>
+                        <p><strong>What you can do:</strong></p>
+                        <p>• Forms, workflows, reports</p>
+                        <p>• Content, branding, dashboards</p>
+                        <p>• Most future changes</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="text-align: center;">
+                    <h2 style="margin-bottom: 20px;">Handover Success Metrics</h2>
+                    <div style="display: flex; justify-content: space-around;">
+                        <div>
+                            <p style="font-size: 36px; font-weight: 700; color: var(--pwc-yellow);">90%</p>
+                            <p>Team Self-Sufficiency</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 36px; font-weight: 700; color: var(--pwc-yellow);">100%</p>
+                            <p>IP Ownership</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 36px; font-weight: 700; color: var(--pwc-yellow);">0</p>
+                            <p>Vendor Dependencies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Investment & ROI -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Investment & Returns</h1>
+                <p class="subtitle">Transparent costs, guaranteed savings</p>
+                
+                <table class="simple-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Year 1</th>
+                            <th>Annual Ongoing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Implementation</strong></td>
+                            <td>£200,000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Microsoft Licenses</strong></td>
+                            <td>£11,400</td>
+                            <td>£11,400</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hypercare Support</strong></td>
+                            <td>£15,000</td>
+                            <td>-</td>
+                        </tr>
+                        <tr style="background: rgba(208,74,2,0.2);">
+                            <td><strong>TOTAL</strong></td>
+                            <td><strong>£226,400</strong></td>
+                            <td><strong>£11,400</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="metrics-row">
+                    <div class="metric">
+                        <div class="metric-value">£40K</div>
+                        <div class="metric-label">Annual Savings</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">8-10</div>
+                        <div class="metric-label">Month Payback</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">150%</div>
+                        <div class="metric-label">3-Year ROI</div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h2 style="color: #44ff44; margin-bottom: 20px;">💡 The Hidden Value</h2>
+                    <p style="font-size: 22px;">This platform enables ALL future digital services:</p>
+                    <p>• Year 2: Licensing, permits, bookings (+£150k savings)</p>
+                    <p>• Year 3: Citizen 360° view (+£200k savings)</p>
+                    <p style="font-size: 24px; margin-top: 20px;"><strong>Future services cost 80% less to build</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Risk Mitigation -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Risk Prevention</h1>
+                <p class="subtitle">"Council's new app leaks data" - How we make this headline impossible</p>
+                
+                <div class="key-points">
+                    <div class="point-card" style="border-color: #ff4444;">
+                        <h3 style="color: #ff4444;">🛡️ Political Risks</h3>
+                        <p><strong>Launch failure:</strong> Soft pilot 1,000 users</p>
+                        <p><strong>Data breach:</strong> UK hosting, pen testing</p>
+                        <p><strong>Digital divide:</strong> Phone channel retained</p>
+                    </div>
+                    <div class="point-card" style="border-color: #ffaa44;">
+                        <h3 style="color: #ffaa44;">📚 Team Risks</h3>
+                        <p><strong>Low-code skills:</strong> 8-week bootcamp</p>
+                        <p><strong>Agile skepticism:</strong> Demos not ceremonies</p>
+                        <p><strong>Knowledge loss:</strong> 5 certifications</p>
+                    </div>
+                    <div class="point-card" style="border-color: #44ff44;">
+                        <h3 style="color: #44ff44;">⚙️ Technical Risks</h3>
+                        <p><strong>Integration:</strong> Phased approach</p>
+                        <p><strong>Performance:</strong> Auto-scaling</p>
+                        <p><strong>Accessibility:</strong> WCAG every sprint</p>
+                    </div>
+                    <div class="point-card" style="border-color: var(--pwc-yellow);">
+                        <h3 style="color: var(--pwc-yellow);">✓ Mitigation</h3>
+                        <p><strong>Every risk has a plan</strong></p>
+                        <p><strong>Weekly risk reviews</strong></p>
+                        <p><strong>No surprises policy</strong></p>
+                    </div>
+                </div>
+                
+                <table class="simple-table">
+                    <thead>
+                        <tr>
+                            <th>Your Specific Concern</th>
+                            <th>Our Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>"Stretched staff & lack of direction"</td>
+                            <td>PwC leads initially, clear weekly milestones</td>
+                        </tr>
+                        <tr>
+                            <td>"Rarely used low-code in practice"</td>
+                            <td>Hands-on from day 1, safe sandbox environment</td>
+                        </tr>
+                        <tr>
+                            <td>"Unconvinced of Agile usefulness"</td>
+                            <td>Working software in 4 weeks proves value</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Slide 9: Next Steps -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Your Decision</h1>
+                <p class="subtitle">From drowning in calls to leading in digital</p>
+                
+                <div class="highlight-box" style="background: linear-gradient(135deg, rgba(0,255,0,0.1) 0%, rgba(0,200,0,0.1) 100%); border-color: #44ff44;">
+                    <h2 style="color: #44ff44; margin-bottom: 25px;">✅ What We've Proven</h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                        <p style="font-size: 20px;">• Power Pages is the only viable solution</p>
+                        <p style="font-size: 20px;">• 30% cost reduction is achievable</p>
+                        <p style="font-size: 20px;">• Your team can become self-sufficient</p>
+                        <p style="font-size: 20px;">• Every risk has been mitigated</p>
+                        <p style="font-size: 20px;">• 8-10 month payback guaranteed</p>
+                        <p style="font-size: 20px;">• Platform enables all future services</p>
+                    </div>
+                </div>
+                
+                <h2 style="text-align: center; margin: 40px 0;">Immediate Next Steps</h2>
+                
+                <div class="simple-timeline">
+                    <div class="timeline-point">
+                        <h4>Week 1</h4>
+                        <p>Stakeholder alignment</p>
+                    </div>
+                    <div class="timeline-point">
+                        <h4>Week 2</h4>
+                        <p>Environment setup</p>
+                    </div>
+                    <div class="timeline-point">
+                        <h4>Week 3</h4>
+                        <p>Kick-off workshop</p>
+                    </div>
+                    <div class="timeline-point">
+                        <h4>Week 4</h4>
+                        <p>First sprint begins</p>
+                    </div>
+                </div>
+                
+                <div class="cta-section">
+                    <h2>Ready to Transform?</h2>
+                    <p style="font-size: 24px; color: white; margin-bottom: 20px;">
+                        Let's build your digital future together
+                    </p>
+                    <a href="#" class="cta-btn">Start Your Journey</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = slides.length;
+        
+        function showSlide(index) {
+            // Remove all active states
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active', 'prev');
+                if (i < index) slide.classList.add('prev');
+            });
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Bound check
+            if (index < 0) index = 0;
+            if (index >= totalSlides) index = totalSlides - 1;
+            
+            // Set current slide
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+            
+            // Update buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+        
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+        
+        function goToSlide(index) {
+            showSlide(index);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                showSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                showSlide(totalSlides - 1);
+            }
+        });
+        
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) changeSlide(1);
+            if (touchEndX > touchStartX + 50) changeSlide(-1);
+        }
+        
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
