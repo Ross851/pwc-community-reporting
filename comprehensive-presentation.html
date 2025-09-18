@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PwC Community Reporting Solution - Comprehensive Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pwc-orange: #D04A02;
+            --pwc-orange-light: #E87722;
+            --pwc-pink: #DB536A;
+            --pwc-yellow: #FFB600;
+            --pwc-black: #2D2926;
+            --pwc-dark-grey: #404040;
+            --pwc-grey: #666666;
+            --pwc-light-grey: #F5F5F5;
+            --pwc-white: #FFFFFF;
+            --gradient: linear-gradient(135deg, #D04A02 0%, #DB536A 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 15px 40px;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--pwc-orange);
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--pwc-orange);
+            font-family: Georgia, serif;
+        }
+
+        .slide-counter {
+            color: var(--pwc-orange);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 8px 20px;
+            background: var(--pwc-orange);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--pwc-orange-light);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Slides Container */
+        .slides-container {
+            height: 100vh;
+            overflow-y: auto;
+            padding-top: 70px;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            min-height: calc(100vh - 70px);
+            padding: 40px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--pwc-orange);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--pwc-orange);
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--pwc-orange);
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--pwc-pink);
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        h4 {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--pwc-yellow);
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--pwc-orange);
+            transform: translateY(-5px);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: var(--pwc-orange);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.85);
+        }
+
+        tr:hover td {
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-left: 4px solid var(--pwc-orange);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .architecture-diagram {
+            background: rgba(0,0,0,0.3);
+            border: 2px solid var(--pwc-orange);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        /* Highlight boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(208,74,2,0.1) 0%, rgba(219,83,106,0.1) 100%);
+            border: 2px solid var(--pwc-orange);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .warning-box {
+            background: rgba(255,0,0,0.1);
+            border: 2px solid #ff4444;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: rgba(0,255,0,0.1);
+            border: 2px solid #44ff44;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-marker {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--pwc-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 25px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        /* Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background: var(--gradient);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background: var(--pwc-orange);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--pwc-orange-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(208, 74, 2, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px;
+            }
+            h1 { font-size: 32px; }
+            h2 { font-size: 28px; }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="logo">PwC</div>
+        <div class="nav-controls">
+            <span class="slide-counter">
+                Slide <span id="currentSlide">1</span> of <span id="totalSlides">20</span>
+            </span>
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">Previous</button>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next</button>
+        </div>
+    </nav>
+
+    <!-- Slides Container -->
+    <div class="slides-container">
+        
+        <!-- Slide 1: Title & Hook -->
+        <section class="slide active">
+            <div class="slide-content">
+                <div class="warning-box">
+                    <h2 style="color: #ff4444; margin: 0;">⚠️ Your call centre is drowning</h2>
+                    <p style="font-size: 20px; margin: 10px 0;">
+                        500 calls/day × £5/call = <strong style="color: #ff4444;">£650,000/year</strong> just to hear about potholes
+                    </p>
+                </div>
+                
+                <h1>Community Reporting Solution for Local Authority</h1>
+                <p class="subtitle">PwC Microsoft Practice - Manager Grade Presentation</p>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">300K</div>
+                        <div class="metric-label">Residents Served</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">30%</div>
+                        <div class="metric-label">Cost Reduction</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">60s</div>
+                        <div class="metric-label">Report Time</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">£40K</div>
+                        <div class="metric-label">Annual Savings</div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>The Challenge We're Solving</h3>
+                    <p><strong>"How do we reduce call centre costs by 30% and improve citizen satisfaction without adding burden to an already stretched team?"</strong></p>
+                    <p>This presentation demonstrates a solution that transforms citizen engagement while building your team's capability - with no supplier dependency after handover.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Executive Summary & Assumptions -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Executive Summary</h1>
+                
+                <h2>Critical Assumptions</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Technical Reality</h4>
+                        <p>Your team has Microsoft infrastructure but limited low-code experience</p>
+                        <p><strong>Our approach:</strong> Leverage existing investments while building new capabilities</p>
+                    </div>
+                    <div class="card">
+                        <h4>Citizen Expectations</h4>
+                        <p>300,000 residents expect Amazon-like experiences</p>
+                        <p><strong>Our approach:</strong> Anonymous access and mobile-first design are non-negotiable</p>
+                    </div>
+                    <div class="card">
+                        <h4>Operational Constraints</h4>
+                        <p>Stretched staff need a solution they can maintain</p>
+                        <p><strong>Our approach:</strong> Visual low-code tools and phased rollout are essential</p>
+                    </div>
+                </div>
+                
+                <h2>Client Context</h2>
+                <table>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Current State</th>
+                        <th>Target State</th>
+                    </tr>
+                    <tr>
+                        <td>Population Served</td>
+                        <td>300,000 residents</td>
+                        <td>Same, better served</td>
+                    </tr>
+                    <tr>
+                        <td>Technology Stack</td>
+                        <td>Microsoft ecosystem, limited low-code</td>
+                        <td>Power Platform expertise</td>
+                    </tr>
+                    <tr>
+                        <td>Service Delivery</td>
+                        <td>Phone-centric, office hours</td>
+                        <td>Digital-first, 24/7</td>
+                    </tr>
+                    <tr>
+                        <td>Team Capability</td>
+                        <td>Traditional IT, vendor dependent</td>
+                        <td>Self-sufficient, certified staff</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Slide 3: Why Power Pages -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Why Power Pages? The Strategic Choice</h1>
+                
+                <div class="highlight-box">
+                    <h3>Platform Decision Rationale</h3>
+                    <ul>
+                        <li><strong>Anonymous Access Critical:</strong> Citizens won't create accounts to report potholes - removing friction increases adoption by 10x</li>
+                        <li><strong>Cost Predictability:</strong> Flat-rate licensing vs per-transaction costs that could spiral with 300k residents</li>
+                        <li><strong>Existing Microsoft Investment:</strong> Leverages current M365/Azure spend rather than new supplier contracts</li>
+                        <li><strong>Low-Code Maintainability:</strong> Visual designers mean council staff can make changes without supplier dependency</li>
+                    </ul>
+                </div>
+                
+                <h2>Platform Comparison</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criteria</th>
+                            <th style="background: var(--pwc-pink);">Power Pages ✓</th>
+                            <th>Power Apps Portal</th>
+                            <th>Custom Development</th>
+                            <th>Third-Party SaaS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Anonymous Access</strong></td>
+                            <td>✅ Native support</td>
+                            <td>❌ Requires auth</td>
+                            <td>✅ Requires dev</td>
+                            <td>⚠️ Varies</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cost Model</strong></td>
+                            <td>✅ Flat rate unlimited</td>
+                            <td>❌ Per user</td>
+                            <td>⚠️ High dev cost</td>
+                            <td>⚠️ Per transaction</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Team Skills</strong></td>
+                            <td>✅ Achievable non-devs</td>
+                            <td>✅ Achievable</td>
+                            <td>❌ Developers only</td>
+                            <td>❌ Vendor dependent</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Time to Market</strong></td>
+                            <td>✅ 3-6 months</td>
+                            <td>✅ 3-6 months</td>
+                            <td>❌ 9-12 months</td>
+                            <td>⚠️ 2-3 months limited</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Microsoft Integration</strong></td>
+                            <td>✅ Native</td>
+                            <td>✅ Native</td>
+                            <td>⚠️ Via APIs</td>
+                            <td>❌ Third-party</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Slide 4: Stakeholder Engagement -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Stakeholder Engagement Strategy</h1>
+                
+                <div class="warning-box">
+                    <h3>"We've tried this before and it failed"</h3>
+                    <p>Here's why this time is different: Design Authority Model with clear accountability</p>
+                </div>
+                
+                <h2>Stakeholder Matrix</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>👥 ICT Team</h3>
+                        <p><strong>Role:</strong> Technical implementation & security</p>
+                        <p><strong>Engagement:</strong> Weekly technical stand-ups</p>
+                        <p><strong>Key Focus:</strong></p>
+                        <ul>
+                            <li>Integration with existing infrastructure</li>
+                            <li>Security and data governance</li>
+                            <li>Technical knowledge transfer</li>
+                        </ul>
+                        <p><strong>Success Metric:</strong> Security sign-off achieved</p>
+                    </div>
+                    <div class="card">
+                        <h3>📞 Customer Service Team</h3>
+                        <p><strong>Role:</strong> Primary system users</p>
+                        <p><strong>Engagement:</strong> Bi-weekly demos & feedback</p>
+                        <p><strong>Key Focus:</strong></p>
+                        <ul>
+                            <li>User experience design</li>
+                            <li>Case management workflows</li>
+                            <li>Training requirements</li>
+                        </ul>
+                        <p><strong>Success Metric:</strong> 90% adoption rate</p>
+                    </div>
+                    <div class="card">
+                        <h3>📣 Marketing Team</h3>
+                        <p><strong>Role:</strong> Public communication & adoption</p>
+                        <p><strong>Engagement:</strong> Monthly progress reviews</p>
+                        <p><strong>Key Focus:</strong></p>
+                        <ul>
+                            <li>Public portal branding</li>
+                            <li>Citizen communication strategy</li>
+                            <li>Launch planning</li>
+                        </ul>
+                        <p><strong>Success Metric:</strong> 10% citizen adoption</p>
+                    </div>
+                    <div class="card">
+                        <h3>🏛️ Leadership</h3>
+                        <p><strong>Role:</strong> Strategic oversight & approval</p>
+                        <p><strong>Engagement:</strong> Fortnightly steering committee</p>
+                        <p><strong>Key Focus:</strong></p>
+                        <ul>
+                            <li>ROI and benefits realisation</li>
+                            <li>Risk management</li>
+                            <li>Resource allocation</li>
+                        </ul>
+                        <p><strong>Success Metric:</strong> 30% cost reduction</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>🎯 The Secret Sauce: Design Authority Model</h3>
+                    <p><strong>Single decision maker + All voices heard = No endless committees</strong></p>
+                    <ul>
+                        <li>ICT has security veto (they sleep at night)</li>
+                        <li>Service teams own acceptance (they use it daily)</li>
+                        <li>Citizens validate monthly (they keep you honest)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Requirements Gathering -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Requirements Gathering & Validation</h1>
+                
+                <h2>Requirements Analysis from Brief</h2>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Functional Requirements</h3>
+                        <p><strong>What the System Must Do:</strong></p>
+                        <ul>
+                            <li>Citizens report bins, road hazards, abandoned vehicles</li>
+                            <li>Upload and attach photo evidence</li>
+                            <li>Staff triage, assign, and track issues</li>
+                            <li>Real-time dashboards and reporting</li>
+                            <li>Future Copilot integration for intelligent routing</li>
+                            <li>Multi-channel access (web, mobile, voice/chat)</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Non-Functional Requirements</h3>
+                        <p><strong>How the System Must Perform:</strong></p>
+                        <ul>
+                            <li>Support 300,000 residents with peak loads</li>
+                            <li>WCAG 2.1 AA compliance for all citizens</li>
+                            <li>&lt;3 second page loads on 4G mobile</li>
+                            <li>Enterprise-grade, GDPR compliant</li>
+                            <li>99.5% uptime during business hours</li>
+                            <li>Low-code platform for non-developer staff</li>
+                            <li>Intuitive interface requiring no training</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h2>Business Analysis Framework</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W1-2</div>
+                        <div class="timeline-content">
+                            <h4>Discovery Phase</h4>
+                            <p>Process mapping workshops, pain point identification, future state visioning</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W3-4</div>
+                        <div class="timeline-content">
+                            <h4>Analysis Phase</h4>
+                            <p>User journey mapping, data requirements analysis, system integration planning</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">W5-6</div>
+                        <div class="timeline-content">
+                            <h4>Validation Phase</h4>
+                            <p>MoSCoW prioritisation, acceptance criteria definition, traceability matrix</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="code-block">
+                    <h4>Backlog Structure</h4>
+                    <pre>
+Epic 1: Citizen Portal
+├── User Story: Report missed bin collection
+├── User Story: Upload photo evidence
+└── User Story: Track issue status
+
+Epic 2: Staff Management
+├── User Story: Triage incoming reports
+├── User Story: Assign to departments
+└── User Story: Update citizens on progress
+
+Epic 3: Analytics Dashboard
+├── User Story: View real-time statistics
+├── User Story: Generate performance reports
+└── User Story: Identify trends and hotspots
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Technical Architecture -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Technical Architecture</h1>
+                
+                <div class="architecture-diagram">
+                    <h3>High-Level Solution Architecture</h3>
+                    <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <p><strong>Citizens (300,000)</strong> → 📱 Mobile / 💻 Desktop</p>
+                        <p>↓ HTTPS</p>
+                        <p><strong>🌐 Power Pages Portal</strong> (Anonymous Access / Azure Front Door)</p>
+                        <p>↓</p>
+                        <p><strong>💾 Microsoft Dataverse</strong> (Issues, Citizens, Categories, Attachments)</p>
+                        <p>↓</p>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px;">
+                            <div>
+                                <p><strong>Power Automate</strong></p>
+                                <p style="font-size: 14px;">Workflows & Integration</p>
+                            </div>
+                            <div>
+                                <p><strong>Azure Blob Storage</strong></p>
+                                <p style="font-size: 14px;">Photos & Documents</p>
+                            </div>
+                            <div>
+                                <p><strong>Power BI</strong></p>
+                                <p style="font-size: 14px;">Analytics & Reporting</p>
+                            </div>
+                        </div>
+                        <p>↓</p>
+                        <p><strong>Existing Council Systems</strong> (Dynamics CRM | GIS System | Asset Management)</p>
+                    </div>
+                </div>
+                
+                <h2>Solution Components</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Frontend - Power Pages</h3>
+                        <ul>
+                            <li>Responsive mobile-first design</li>
+                            <li>WCAG 2.1 AA accessibility</li>
+                            <li>Multi-language support</li>
+                            <li>Progressive web app capabilities</li>
+                            <li>Anonymous submission with email verification</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Backend - Dataverse</h3>
+                        <ul>
+                            <li>Citizens (Contacts) entity</li>
+                            <li>Issues (Cases) entity</li>
+                            <li>Categories (Reference) entity</li>
+                            <li>Attachments (Files) entity</li>
+                            <li>Row-level security</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Integration - Power Automate</h3>
+                        <ul>
+                            <li>Issue routing by category</li>
+                            <li>Email/SMS notifications</li>
+                            <li>Escalation for overdue issues</li>
+                            <li>System integration orchestration</li>
+                            <li>Photo processing to Blob Storage</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Integration Strategy -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>System Integration Strategy</h1>
+                
+                <h2>Existing Council System Integrations</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>System</th>
+                            <th>Integration Method</th>
+                            <th>Data Flow</th>
+                            <th>Frequency</th>
+                            <th>Risk Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Dynamics 365 CRM</strong></td>
+                            <td>REST API</td>
+                            <td>Bi-directional citizen records</td>
+                            <td>Real-time</td>
+                            <td style="color: #ff4444;">High</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ESRI ArcGIS</strong></td>
+                            <td>REST API</td>
+                            <td>Location validation & mapping</td>
+                            <td>On submission</td>
+                            <td style="color: #ffaa44;">Medium</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Confirm Asset Mgmt</strong></td>
+                            <td>SOAP/XML</td>
+                            <td>Create work orders</td>
+                            <td>Every 15 mins</td>
+                            <td style="color: #ff4444;">High</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SAP Finance</strong></td>
+                            <td>Flat file SFTP</td>
+                            <td>Cost tracking</td>
+                            <td>Daily batch</td>
+                            <td style="color: #ffaa44;">Medium</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Exchange/Outlook</strong></td>
+                            <td>Graph API</td>
+                            <td>Email notifications</td>
+                            <td>Real-time</td>
+                            <td style="color: #44ff44;">Low</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Active Directory</strong></td>
+                            <td>Graph API</td>
+                            <td>Staff authentication</td>
+                            <td>On login</td>
+                            <td style="color: #44ff44;">Low</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2>Integration Risk Mitigation</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>High-Risk: Dynamics 365 CRM</h3>
+                        <p><strong>Risk:</strong> Data conflicts in bi-directional sync</p>
+                        <p><strong>Mitigation:</strong></p>
+                        <ul>
+                            <li>Implement "last write wins" with audit trail</li>
+                            <li>API throttling (6,000 requests per 5 minutes)</li>
+                            <li>Queue changes in Dataverse for batch retry</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>High-Risk: Confirm Asset Management</h3>
+                        <p><strong>Risk:</strong> Legacy SOAP, 30-second timeouts</p>
+                        <p><strong>Mitigation:</strong></p>
+                        <ul>
+                            <li>Build abstraction layer with transformation maps</li>
+                            <li>Implement circuit breaker pattern</li>
+                            <li>Email fallback with CSV attachment</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Medium-Risk: SAP Finance</h3>
+                        <p><strong>Risk:</strong> File format changes, SFTP issues</p>
+                        <p><strong>Mitigation:</strong></p>
+                        <ul>
+                            <li>Schema validation on every transfer</li>
+                            <li>File versioning and 30-day retention</li>
+                            <li>Alert on failed transfers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: AI Integration & Prioritisation -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>AI Integration & Issue Prioritisation</h1>
+                
+                <div class="warning-box">
+                    <h3>From "Lead Scoring" to Life Saving</h3>
+                    <p>How AI decides: Is this a pothole or a sinkhole about to swallow a school bus?</p>
+                </div>
+                
+                <h2>Microsoft Copilot Studio Implementation Phases</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">M3-4</div>
+                        <div class="timeline-content">
+                            <h4>Phase 1: Basic Chatbot</h4>
+                            <ul>
+                                <li>FAQ responses</li>
+                                <li>Issue status checking</li>
+                                <li>Simple routing guidance</li>
+                            </ul>
+                            <p><strong>Why Start Here:</strong> Low risk, high value, builds user trust</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">M6-9</div>
+                        <div class="timeline-content">
+                            <h4>Phase 2: Intelligent Assistant</h4>
+                            <ul>
+                                <li>Natural language processing for categorisation</li>
+                                <li>Auto-suggest similar resolved issues</li>
+                                <li>Sentiment analysis for priority routing</li>
+                            </ul>
+                            <p><strong>Why Next:</strong> Reduces staff workload once patterns established</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">M12+</div>
+                        <div class="timeline-content">
+                            <h4>Phase 3: Predictive Analytics</h4>
+                            <ul>
+                                <li>Issue volume forecasting</li>
+                                <li>Resource optimisation recommendations</li>
+                                <li>Preventive maintenance insights</li>
+                            </ul>
+                            <p><strong>Why Later:</strong> Requires historical data to train models</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="background: linear-gradient(135deg, rgba(255,0,0,0.1) 0%, rgba(255,100,0,0.1) 100%); border-color: #ff6644;">
+                    <h3>⚡ Real Impact Story</h3>
+                    <p><strong>Friday 4:47pm:</strong> Elderly resident reports broken streetlight</p>
+                    <p><strong>AI flags:</strong> School route + dark mornings + previous assault location</p>
+                    <p><strong>Result:</strong> Emergency crew dispatched, fixed by Monday 7am</p>
+                    <p style="margin-top: 10px;"><em>Without AI: Fixed in 3 weeks, after the incident happens</em></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Implementation Methodology -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Implementation Methodology</h1>
+                
+                <div class="warning-box">
+                    <h3>"We don't do Agile" → "We can't stop doing Agile"</h3>
+                    <p>How we convert Agile skeptics in 2 weeks through working demos, not ceremonies</p>
+                </div>
+                
+                <h2>Addressing Agile Concerns</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Traditional Waterfall Risks</h3>
+                        <ul>
+                            <li>6-month development → Obsolete on launch</li>
+                            <li>Big bang release → High failure risk</li>
+                            <li>Late user feedback → Expensive rework</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Agile Benefits for Local Authority</h3>
+                        <ul>
+                            <li><strong>Show Progress Fast:</strong> Working portal in Sprint 2</li>
+                            <li><strong>Citizen Feedback Early:</strong> Pilot with 1,000 residents</li>
+                            <li><strong>Risk Reduction:</strong> Fail fast, fix fast</li>
+                            <li><strong>Budget Control:</strong> Prioritize features incrementally</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h2>Sprint Structure with Concrete Demos</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sprint</th>
+                            <th>Focus</th>
+                            <th>Demo Deliverable</th>
+                            <th>Business Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sprint 1-2</td>
+                            <td>Core portal development</td>
+                            <td>Functional mobile form with photo upload</td>
+                            <td>Reduces anxiety, increases buy-in</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 3-4</td>
+                            <td>Workflow automation</td>
+                            <td>End-to-end issue journey with routing</td>
+                            <td>Shows efficiency gains</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 5-6</td>
+                            <td>Analytics dashboard</td>
+                            <td>Real-time Power BI dashboard</td>
+                            <td>Data-driven decisions</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 7-8</td>
+                            <td>Integration testing</td>
+                            <td>100 simultaneous submissions processed</td>
+                            <td>Proves scalability</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 9-10</td>
+                            <td>UAT & training</td>
+                            <td>Staff independently managing system</td>
+                            <td>Confirms handover readiness</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2>Governance & ARB Checkpoints</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sprint</th>
+                            <th>ARB Checkpoint</th>
+                            <th>Focus Areas</th>
+                            <th>Key Deliverable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sprint 0</td>
+                            <td>Initial Architecture</td>
+                            <td>Security model, data sovereignty</td>
+                            <td>Architecture Decision Records</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 2</td>
+                            <td>Security & Compliance</td>
+                            <td>GDPR, penetration testing plan</td>
+                            <td>Security assessment report</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 4</td>
+                            <td>Integration Architecture</td>
+                            <td>API specifications, error handling</td>
+                            <td>Integration design document</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 6</td>
+                            <td>Scalability & Performance</td>
+                            <td>Load testing results, scaling strategy</td>
+                            <td>Performance baseline report</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 8</td>
+                            <td>Pre-Production</td>
+                            <td>Disaster recovery, operational handover</td>
+                            <td>Go-live readiness checklist</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Slide 10: Team Composition & Skills -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Team Composition & Knowledge Transfer</h1>
+                
+                <h2>Project Team Structure</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Core Team</h3>
+                        <ul>
+                            <li><strong>Product Owner</strong> (Local Authority)</li>
+                            <li><strong>Scrum Master</strong> (PwC)</li>
+                            <li><strong>Power Platform Developer</strong> x2</li>
+                            <li><strong>UX/UI Designer</strong></li>
+                            <li><strong>Business Analyst</strong></li>
+                            <li><strong>Test Analyst</strong></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Extended Team</h3>
+                        <ul>
+                            <li><strong>Solution Architect</strong> (30% allocation)</li>
+                            <li><strong>Change Manager</strong> (30% allocation)</li>
+                            <li><strong>Data Migration Specialist</strong> (10% allocation)</li>
+                            <li><strong>Security Specialist</strong> (As needed)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h2>Knowledge Transfer Plan - Intensive Track</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">BA</div>
+                        <div class="timeline-content">
+                            <h4>Business Analysts (2 staff)</h4>
+                            <p><strong>Week 1-2:</strong> Requirements gathering in Power Platform context</p>
+                            <p><strong>Week 3-4:</strong> Power Pages forms and workflows design</p>
+                            <p><strong>Week 5-6:</strong> Power BI report building</p>
+                            <p><strong>Week 7-8:</strong> User acceptance testing techniques</p>
+                            <p><strong>Certification:</strong> PL-200 Power Platform Functional Consultant</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">DEV</div>
+                        <div class="timeline-content">
+                            <h4>Developers (3 staff)</h4>
+                            <p><strong>Week 1-2:</strong> Power Platform architecture and security</p>
+                            <p><strong>Week 3-4:</strong> Power Pages advanced customisation</p>
+                            <p><strong>Week 5-6:</strong> Power Automate complex workflows</p>
+                            <p><strong>Week 7-8:</strong> Custom connectors and Azure Functions</p>
+                            <p><strong>Week 9-10:</strong> ALM, DevOps, and deployment pipelines</p>
+                            <p><strong>Week 11-12:</strong> Performance tuning and troubleshooting</p>
+                            <p><strong>Certification:</strong> PL-400 Power Platform Developer</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">ADM</div>
+                        <div class="timeline-content">
+                            <h4>Administrators (1 staff)</h4>
+                            <p><strong>Week 1-2:</strong> Environment management and security</p>
+                            <p><strong>Week 3-4:</strong> Monitoring and diagnostics</p>
+                            <p><strong>Week 5-6:</strong> Backup, recovery, and capacity planning</p>
+                            <p><strong>Week 7-8:</strong> User management and governance</p>
+                            <p><strong>Certification:</strong> PL-200 + Azure Fundamentals</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: Partnership Models -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Partnership Model & Support Options</h1>
+                
+                <h2>Choose Your Partnership Approach</h2>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Option A: Full Handover Model</h3>
+                        <p><strong>Timeline:</strong> 6 months + 3 months hypercare</p>
+                        <p><strong>Training:</strong> Intensive 8-week bootcamp</p>
+                        <p><strong>Approach:</strong></p>
+                        <ul>
+                            <li>50% time on training, 50% on delivery</li>
+                            <li>Full documentation and knowledge base</li>
+                            <li>Microsoft certifications for 5 staff</li>
+                            <li>Complete IP transfer</li>
+                        </ul>
+                        <p><strong>Cost:</strong> Higher upfront, no ongoing</p>
+                        <p><strong>Best for:</strong> Complete independence</p>
+                    </div>
+                    <div class="card">
+                        <h3>Option B: Managed Partnership</h3>
+                        <p><strong>Timeline:</strong> 6 months + 12 months support</p>
+                        <p><strong>Training:</strong> Weekly workshops</p>
+                        <p><strong>Approach:</strong></p>
+                        <ul>
+                            <li>Monthly knowledge transfer sessions</li>
+                            <li>Quarterly health checks</li>
+                            <li>On-demand support tickets</li>
+                            <li>Continuous improvement</li>
+                        </ul>
+                        <p><strong>Cost:</strong> Lower upfront, monthly support</p>
+                        <p><strong>Best for:</strong> Risk mitigation</p>
+                    </div>
+                </div>
+                
+                <h2>Full Handover Package Deliverables</h2>
+                <div class="code-block">
+                    <pre>
+Month 6 Handover Package:
+├── Technical Documentation (500+ pages)
+│   ├── Architecture design documents
+│   ├── Data dictionary
+│   ├── Integration specifications
+│   └── Security configuration guide
+├── Operational Runbooks
+│   ├── Daily/weekly/monthly procedures
+│   ├── Incident response playbook
+│   ├── Disaster recovery plan
+│   └── Performance monitoring guide
+├── Training Materials
+│   ├── Role-based training guides
+│   ├── 40 hours of video tutorials
+│   ├── Hands-on lab exercises
+│   └── Quick reference cards
+└── Intellectual Property Transfer
+    ├── All source code and configurations
+    ├── Custom connector code
+    ├── Azure DevOps project transfer
+    └── Perpetual licence for custom components
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Low-Code vs Pro-Code Boundaries -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Low-Code vs Pro-Code Boundaries</h1>
+                
+                <h2>What Your Council Team Can Do</h2>
+                <div class="success-box">
+                    <h3>✅ Low-Code Capabilities (Council Team Self-Service)</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h4>Power Pages</h4>
+                            <ul>
+                                <li>Page layouts and content updates</li>
+                                <li>Form configuration and validation</li>
+                                <li>Basic workflows and email templates</li>
+                                <li>Theme and branding changes</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h4>Power Automate</h4>
+                            <ul>
+                                <li>Simple approval workflows</li>
+                                <li>Email notifications and scheduling</li>
+                                <li>Data exports to Excel/CSV</li>
+                                <li>Basic conditional logic</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h4>Power BI</h4>
+                            <ul>
+                                <li>Report modifications and filters</li>
+                                <li>Dashboard layout changes</li>
+                                <li>New visualisations from existing data</li>
+                                <li>Scheduled refresh configuration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2>What Requires Developer Support</h2>
+                <div class="warning-box">
+                    <h3>⚠️ Pro-Code Requirements (Specialist Support Needed)</h3>
+                    <ul>
+                        <li><strong>Custom Connectors:</strong> Integration with systems lacking standard connectors</li>
+                        <li><strong>Azure Functions:</strong> Complex data transformations, external API calls</li>
+                        <li><strong>JavaScript:</strong> Advanced form validation, custom UI components</li>
+                        <li><strong>Plugins:</strong> Server-side business logic in C#</li>
+                        <li><strong>PCF Controls:</strong> Custom Power Apps components</li>
+                        <li><strong>Liquid Templates:</strong> Advanced Power Pages customisation</li>
+                    </ul>
+                </div>
+                
+                <h2>Escalation Path</h2>
+                <div class="highlight-box">
+                    <p><strong>When Council Team Hits a Limitation:</strong></p>
+                    <ol>
+                        <li>Council Team attempts using low-code tools</li>
+                        <li>Identifies limitation or complexity</li>
+                        <li>Logs PwC support ticket with details</li>
+                        <li>PwC provides solution options:
+                            <ul>
+                                <li>Workaround using existing low-code capabilities</li>
+                                <li>Training session to expand team capability</li>
+                                <li>Pro-code development (if on partnership model)</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 13: Licensing & Costs -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Microsoft Licensing & Cost Analysis</h1>
+                
+                <h2>Required Licenses - Transparent Retail Pricing</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>License Type</th>
+                            <th>Quantity</th>
+                            <th>Monthly Cost</th>
+                            <th>Annual Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Power Pages</strong></td>
+                            <td>Anonymous Users (unlimited)</td>
+                            <td>1 website</td>
+                            <td>£375</td>
+                            <td>£4,500</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Power Platform Premium</strong></td>
+                            <td>Internal staff users</td>
+                            <td>20 users</td>
+                            <td>£300</td>
+                            <td>£3,600</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Power BI Pro</strong></td>
+                            <td>Managers/analysts</td>
+                            <td>10 users</td>
+                            <td>£75</td>
+                            <td>£900</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Power Automate Per Flow</strong></td>
+                            <td>High-volume flows</td>
+                            <td>2 flows</td>
+                            <td>£150</td>
+                            <td>£1,800</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Azure Blob Storage</strong></td>
+                            <td>Photos/documents</td>
+                            <td>10TB est.</td>
+                            <td>£50</td>
+                            <td>£600</td>
+                        </tr>
+                        <tr style="background: var(--pwc-orange); color: white;">
+                            <td colspan="3"><strong>TOTAL RUNNING COSTS</strong></td>
+                            <td><strong>£950/month</strong></td>
+                            <td><strong>£11,400/year</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2>Total Investment Breakdown</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">£226,400</div>
+                        <div class="metric-label">Year 1 Total</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">£200,000</div>
+                        <div class="metric-label">Implementation</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">£15,000</div>
+                        <div class="metric-label">Hypercare</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">£11,400</div>
+                        <div class="metric-label">Annual Licenses</div>
+                    </div>
+                </div>
+                
+                <h2>ROI Analysis</h2>
+                <div class="highlight-box">
+                    <h3>Cost Savings Breakdown</h3>
+                    <ul>
+                        <li><strong>Call Centre Reduction:</strong> 100 calls/day × 30% × £5/call = £150/day = £40,000/year</li>
+                        <li><strong>Efficiency Gains:</strong> 25% faster resolution = £20,000/year in staff time</li>
+                        <li><strong>Reduced Complaints:</strong> Better service = £10,000/year in complaint handling</li>
+                        <li><strong>Total Annual Savings:</strong> £70,000</li>
+                        <li><strong>Payback Period:</strong> 8-10 months on efficiency gains alone</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 14: Performance Testing -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Performance Testing & Scalability</h1>
+                
+                <h2>Target Performance Metrics</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Target</th>
+                            <th>Critical Threshold</th>
+                            <th>Testing Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Page Load Time</td>
+                            <td>&lt;2 seconds</td>
+                            <td>&lt;3 seconds</td>
+                            <td>Azure Load Testing</td>
+                        </tr>
+                        <tr>
+                            <td>Form Submission</td>
+                            <td>&lt;3 seconds</td>
+                            <td>&lt;5 seconds</td>
+                            <td>Automated UI tests</td>
+                        </tr>
+                        <tr>
+                            <td>Photo Upload (5MB)</td>
+                            <td>&lt;10 seconds</td>
+                            <td>&lt;15 seconds</td>
+                            <td>Real device testing</td>
+                        </tr>
+                        <tr>
+                            <td>Concurrent Users</td>
+                            <td>500 average</td>
+                            <td>1,000 peak</td>
+                            <td>Stress testing</td>
+                        </tr>
+                        <tr>
+                            <td>Daily Submissions</td>
+                            <td>1,000 average</td>
+                            <td>5,000 peak</td>
+                            <td>Volume testing</td>
+                        </tr>
+                        <tr>
+                            <td>System Availability</td>
+                            <td>99.5%</td>
+                            <td>99% minimum</td>
+                            <td>Monitoring</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2>Load Testing Plan</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">S6</div>
+                        <div class="timeline-content">
+                            <h4>Phase 1: Baseline Testing</h4>
+                            <p>100 concurrent users, 1 hour duration</p>
+                            <p><strong>Success:</strong> All metrics within target</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">S7</div>
+                        <div class="timeline-content">
+                            <h4>Phase 2: Stress Testing</h4>
+                            <p>Ramp to 1,000 users over 2 hours</p>
+                            <p><strong>Purpose:</strong> Identify breaking points</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">S8</div>
+                        <div class="timeline-content">
+                            <h4>Phase 3: Soak Testing</h4>
+                            <p>500 users for 24 hours continuous</p>
+                            <p><strong>Purpose:</strong> Identify memory leaks</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">S8</div>
+                        <div class="timeline-content">
+                            <h4>Phase 4: Spike Testing</h4>
+                            <p>Sudden spike 100→1,000 users</p>
+                            <p><strong>Recovery:</strong> &lt;5 minutes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 15: Risk Management -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Risk Management</h1>
+                
+                <div class="warning-box">
+                    <h3>The Nightmare Scenario Prevention Plan</h3>
+                    <p>"Council's new app leaks data" - How we make this headline impossible</p>
+                </div>
+                
+                <h2>Risk Matrix & Mitigation</h2>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>🛡️ Political/Reputation Risks</h3>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td><strong>Launch failure</strong></td>
+                                <td>Soft pilot with 1,000 users first</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data breach</strong></td>
+                                <td>UK-only hosting, penetration testing</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Digital divide</strong></td>
+                                <td>Library kiosks, phone channel retained</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Press criticism</strong></td>
+                                <td>Positive PR campaign, quick wins</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="card">
+                        <h3>📚 Team Capability Risks</h3>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td><strong>Low-code experience</strong></td>
+                                <td>8-week intensive bootcamp</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Agile skepticism</strong></td>
+                                <td>Bi-weekly demos, not ceremonies</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Knowledge retention</strong></td>
+                                <td>5 staff get certifications</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Key person dependency</strong></td>
+                                <td>Cross-training, documentation</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="card">
+                        <h3>⚙️ Technical Risks</h3>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td><strong>Integration complexity</strong></td>
+                                <td>Phased approach, fallbacks</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Performance issues</strong></td>
+                                <td>Auto-scaling, 99.5% SLA</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Accessibility fails</strong></td>
+                                <td>WCAG testing every sprint</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Scope creep</strong></td>
+                                <td>MoSCoW prioritisation</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <h2>Addressing Brief-Specific Concerns</h2>
+                <div class="highlight-box">
+                    <h3>Your Specific Challenges</h3>
+                    <ul>
+                        <li><strong>"Stretched Staff & Lack of Direction"</strong>
+                            <ul>
+                                <li>PwC leads initially, gradual handover</li>
+                                <li>Clear roadmap with weekly milestones</li>
+                                <li>Quick wins in Sprint 2 to build momentum</li>
+                            </ul>
+                        </li>
+                        <li><strong>"Rarely Used Low-Code in Practice"</strong>
+                            <ul>
+                                <li>Hands-on workshops from day 1</li>
+                                <li>Pair programming on real features</li>
+                                <li>Sandbox environment for safe experimentation</li>
+                            </ul>
+                        </li>
+                        <li><strong>"Inexperienced and Unconvinced of Agile"</strong>
+                            <ul>
+                                <li>Start with "Agile-lite" - focus on demos not ceremonies</li>
+                                <li>Provide Agile coaching alongside development</li>
+                                <li>Adapt to fit government governance structures</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 16: Success Metrics -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Success Metrics & KPIs</h1>
+                
+                <h2>Phased Success Metrics</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">M1-3</div>
+                        <div class="timeline-content">
+                            <h4>Launch Metrics</h4>
+                            <ul>
+                                <li>Portal registrations: Target 5,000</li>
+                                <li>Issues reported digitally: Target 30%</li>
+                                <li>System uptime: Target 99.5%</li>
+                                <li>Page load time: Target &lt;3 seconds</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">M4-6</div>
+                        <div class="timeline-content">
+                            <h4>Operational Metrics</h4>
+                            <ul>
+                                <li>Average resolution time: 25% reduction</li>
+                                <li>First-contact resolution: 80%</li>
+                                <li>Citizen satisfaction (CSAT): 4.5/5</li>
+                                <li>Cost per issue: £3 (from £5)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">M6-12</div>
+                        <div class="timeline-content">
+                            <h4>Transformation Metrics</h4>
+                            <ul>
+                                <li>Team self-sufficiency: 90%</li>
+                                <li>New solutions developed: 3+</li>
+                                <li>Process automation: 60%</li>
+                                <li>ROI achieved: 150%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2>Dashboard Preview</h2>
+                <div class="code-block">
+                    <h4>Executive Dashboard Structure</h4>
+                    <pre>
+Page 1: Executive View
+├── Issue volume trend (30-day rolling)
+├── Resolution time by category
+├── Cost savings tracker
+└── Citizen satisfaction score
+
+Page 2: Operational View
+├── Real-time issue list with status
+├── Geographic heat map
+├── Department performance league table
+└── SLA compliance percentage
+
+Page 3: Citizen Insights
+├── Channel preferences (web/phone/email)
+├── Peak submission times
+├── Repeat reporter analysis
+└── Sentiment analysis trends
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 17: Implementation Timeline -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Implementation Timeline</h1>
+                
+                <h2>6-Month Delivery Plan</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">M1</div>
+                        <div class="timeline-content">
+                            <h4>Discovery & Design</h4>
+                            <ul>
+                                <li>Stakeholder workshops (all teams)</li>
+                                <li>Requirements gathering & validation</li>
+                                <li>Architecture design & ARB approval</li>
+                                <li>Team onboarding & environment setup</li>
+                            </ul>
+                            <p><strong>Key Deliverable:</strong> Signed-off requirements & architecture</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">M2-3</div>
+                        <div class="timeline-content">
+                            <h4>Build Phase</h4>
+                            <ul>
+                                <li>Portal development (citizen interface)</li>
+                                <li>Workflow automation (routing & notifications)</li>
+                                <li>Dashboard creation (Power BI)</li>
+                                <li>Integration development (existing systems)</li>
+                            </ul>
+                            <p><strong>Key Deliverable:</strong> Working prototype for UAT</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">M4</div>
+                        <div class="timeline-content">
+                            <h4>Testing & Training</h4>
+                            <ul>
+                                <li>System testing (functional & performance)</li>
+                                <li>User acceptance testing</li>
+                                <li>Staff training (intensive bootcamp)</li>
+                                <li>Documentation creation</li>
+                            </ul>
+                            <p><strong>Key Deliverable:</strong> Trained staff & test sign-off</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">M5</div>
+                        <div class="timeline-content">
+                            <h4>Pilot Launch</h4>
+                            <ul>
+                                <li>Soft launch to 1,000 citizens</li>
+                                <li>Feedback incorporation</li>
+                                <li>Performance tuning</li>
+                                <li>Process refinement</li>
+                            </ul>
+                            <p><strong>Key Deliverable:</strong> Pilot success metrics achieved</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">M6</div>
+                        <div class="timeline-content">
+                            <h4>Full Launch</h4>
+                            <ul>
+                                <li>Public launch campaign</li>
+                                <li>Hypercare support begins</li>
+                                <li>Continuous improvement</li>
+                                <li>Handover completion</li>
+                            </ul>
+                            <p><strong>Key Deliverable:</strong> Live system with 30% adoption</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 18: Future Roadmap -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Platform Roadmap & Future Vision</h1>
+                
+                <div class="highlight-box" style="background: linear-gradient(135deg, rgba(0,255,0,0.1) 0%, rgba(0,200,0,0.1) 100%); border-color: #44ff44;">
+                    <h2 style="color: #44ff44;">The £2M Hidden Opportunity</h2>
+                    <p style="font-size: 20px;">This "reporting system" is actually your entire digital future for 80% less</p>
+                </div>
+                
+                <h2>3-Year Platform Evolution</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Y1</div>
+                        <div class="timeline-content">
+                            <h4>Foundation: Community Reporting</h4>
+                            <ul>
+                                <li>Core reporting system live</li>
+                                <li>Team trained and certified</li>
+                                <li>30% cost reduction achieved</li>
+                                <li>Citizens engaged and satisfied</li>
+                            </ul>
+                            <p><strong>Investment:</strong> £226,400</p>
+                            <p><strong>Savings:</strong> £70,000/year</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Y2</div>
+                        <div class="timeline-content">
+                            <h4>Expansion: Digital Services</h4>
+                            <ul>
+                                <li>Licensing & permits portal (£50k)</li>
+                                <li>Grants application system (£60k)</li>
+                                <li>Facilities booking platform (£40k)</li>
+                                <li>Parking permit management (£30k)</li>
+                            </ul>
+                            <p><strong>Investment:</strong> £180,000</p>
+                            <p><strong>Additional Savings:</strong> £150,000/year</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">Y3</div>
+                        <div class="timeline-content">
+                            <h4>Transformation: Citizen 360°</h4>
+                            <ul>
+                                <li>Unified citizen view across services</li>
+                                <li>Predictive analytics for service demand</li>
+                                <li>Proactive service delivery</li>
+                                <li>AI-powered virtual assistant</li>
+                            </ul>
+                            <p><strong>Investment:</strong> £80,000</p>
+                            <p><strong>Total Platform Value:</strong> £2M+ in traditional development</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">80%</div>
+                        <div class="metric-label">Cheaper Future Services</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">75%</div>
+                        <div class="metric-label">Faster Delivery</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">100%</div>
+                        <div class="metric-label">In-House Control</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">∞</div>
+                        <div class="metric-label">Scalability</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 19: Key Decisions & Next Steps -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Key Decisions & Next Steps</h1>
+                
+                <h2>Immediate Decisions Required</h2>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>🎯 Pilot Area Selection</h3>
+                        <p><strong>Options:</strong></p>
+                        <ul>
+                            <li>Single ward (low risk)</li>
+                            <li>Specific service (bins only)</li>
+                            <li>Staff-only trial first</li>
+                        </ul>
+                        <p><strong>Recommendation:</strong> Single ward with engaged councillor</p>
+                    </div>
+                    <div class="card">
+                        <h3>🤝 Partnership Model</h3>
+                        <p><strong>Options:</strong></p>
+                        <ul>
+                            <li>Full handover (independence)</li>
+                            <li>Managed support (safety net)</li>
+                        </ul>
+                        <p><strong>Recommendation:</strong> Based on risk appetite</p>
+                    </div>
+                    <div class="card">
+                        <h3>🔗 Integration Priorities</h3>
+                        <p><strong>Systems to connect:</strong></p>
+                        <ul>
+                            <li>CRM (citizen records)</li>
+                            <li>GIS (location data)</li>
+                            <li>Asset management</li>
+                            <li>Finance system</li>
+                        </ul>
+                        <p><strong>Recommendation:</strong> CRM first for quick wins</p>
+                    </div>
+                </div>
+                
+                <h2>Immediate Next Steps</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Action</th>
+                            <th>Owner</th>
+                            <th>Output</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Week 1</td>
+                            <td>Confirm stakeholder availability</td>
+                            <td>Council PM</td>
+                            <td>Workshop schedule</td>
+                        </tr>
+                        <tr>
+                            <td>Week 1</td>
+                            <td>Establish governance structure</td>
+                            <td>Leadership</td>
+                            <td>Steering committee formed</td>
+                        </tr>
+                        <tr>
+                            <td>Week 2</td>
+                            <td>Provision development environment</td>
+                            <td>ICT Team</td>
+                            <td>Power Platform ready</td>
+                        </tr>
+                        <tr>
+                            <td>Week 2</td>
+                            <td>Finalise team composition</td>
+                            <td>HR/Leadership</td>
+                            <td>Project team assigned</td>
+                        </tr>
+                        <tr>
+                            <td>Week 3</td>
+                            <td>Kick-off workshop</td>
+                            <td>PwC/Council</td>
+                            <td>Project initiated</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2>Questions for Discussion</h2>
+                <div class="highlight-box">
+                    <ul>
+                        <li>What are your specific concerns about Agile adoption?</li>
+                        <li>Which existing systems are mission-critical for integration?</li>
+                        <li>What's your timeline for AI capabilities - now or future?</li>
+                        <li>How do you currently measure service success?</li>
+                        <li>What's your risk appetite - innovation vs stability?</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 20: Closing & Contact -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>Summary & Contact</h1>
+                
+                <div class="success-box">
+                    <h2>Your Transformation Journey</h2>
+                    <p style="font-size: 20px;">From drowning in calls to leading in digital innovation</p>
+                </div>
+                
+                <h2>What We've Demonstrated Today</h2>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>✅ Proven Solution</h3>
+                        <ul>
+                            <li>Power Pages for anonymous access</li>
+                            <li>30% cost reduction achievable</li>
+                            <li>8-10 month payback period</li>
+                            <li>Complete team enablement</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>✅ Risk Mitigation</h3>
+                        <ul>
+                            <li>Phased rollout approach</li>
+                            <li>Comprehensive training plan</li>
+                            <li>Multiple support options</li>
+                            <li>No vendor lock-in</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>✅ Future Platform</h3>
+                        <ul>
+                            <li>Foundation for all digital services</li>
+                            <li>80% cheaper future development</li>
+                            <li>Team becomes self-sufficient</li>
+                            <li>Scales to any service area</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 40px;">
+                    <h2>Why PwC?</h2>
+                    <ul>
+                        <li><strong>Microsoft Gold Partner:</strong> Direct access to Microsoft product teams</li>
+                        <li><strong>Public Sector Experience:</strong> 50+ council implementations</li>
+                        <li><strong>Knowledge Transfer Focus:</strong> We leave, you succeed</li>
+                        <li><strong>UK-Based Team:</strong> On-site when needed, remote when efficient</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px; padding: 30px; background: var(--gradient); border-radius: 12px;">
+                    <h2 style="color: white; margin-bottom: 20px;">Ready to Transform?</h2>
+                    <p style="color: white; font-size: 20px; margin-bottom: 30px;">
+                        Let's build your digital future together
+                    </p>
+                    <div style="background: white; color: var(--pwc-orange); padding: 20px; border-radius: 8px; display: inline-block;">
+                        <h3>Contact PwC Microsoft Practice</h3>
+                        <p>Email: microsoft.practice@pwc.com</p>
+                        <p>Phone: 0207 583 5000</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            if (index < 0) index = 0;
+            if (index >= totalSlides) index = totalSlides - 1;
+            
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+            
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            
+            // Scroll to top when changing slides
+            window.scrollTo(0, 0);
+        }
+        
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'Home') {
+                showSlide(0);
+            } else if (e.key === 'End') {
+                showSlide(totalSlides - 1);
+            }
+        });
+        
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
